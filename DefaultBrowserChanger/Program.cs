@@ -1,6 +1,10 @@
 using System.Diagnostics;
 
-NotifyIcon? _browserIcon = null;
+const string chromeName = "Chrome";
+const string firefoxName = "Firefox";
+HashSet<string> SupportedBrowserNames = new HashSet<string> { chromeName, firefoxName };
+
+NotifyIcon? browserIcon = null;
 
 ApplicationConfiguration.Initialize();
 
@@ -15,14 +19,14 @@ void ChangeBrowserHandler(object? sender, MouseEventArgs e)
         return;
     }
 
-    var currentBrowser = CallBrowserScriptCommand("Get-CurrentDefaultBrowser");
+    var currentBrowser = GetCurrentBrowserName();
     switch (currentBrowser)
     {
-        case "Chrome":
-            CallBrowserScriptCommand("Set-DefaultBrowserByName", "Firefox");
+        case chromeName:
+            SetAsDefaultBrowser(firefoxName);
             break;
-        case "Firefox":
-            CallBrowserScriptCommand("Set-DefaultBrowserByName", "Chrome");
+        case firefoxName:
+            SetAsDefaultBrowser(chromeName);
             break;
         default:
             throw new InvalidProgramException($"Unknown current browser {currentBrowser}");
@@ -33,23 +37,29 @@ void ChangeBrowserHandler(object? sender, MouseEventArgs e)
 
 void UpdateBrowserIcon()
 {
-    if (_browserIcon != null)
+    if (browserIcon != null)
     {
-        _browserIcon.MouseClick -= ChangeBrowserHandler;
-        _browserIcon.Visible = false;
-        _browserIcon.ContextMenuStrip.Dispose();
-        _browserIcon.Dispose();
+        browserIcon.MouseClick -= ChangeBrowserHandler;
+        browserIcon.Visible = false;
+        browserIcon.ContextMenuStrip.Dispose();
+        browserIcon.Dispose();
     }
 
-    var browser = CallBrowserScriptCommand("Get-CurrentDefaultBrowser");
+    var browser = GetCurrentBrowserName();
 
-    _browserIcon = new NotifyIcon
+    if (!SupportedBrowserNames.Contains(browser))
+    {
+        SetAsDefaultBrowser(chromeName);
+        return;
+    }
+
+    browserIcon = new NotifyIcon
     {
         Visible = true,
         Icon = new Icon($"{browser}.ico"),
         ContextMenuStrip = MakeContextMenu()
     };
-    _browserIcon.MouseClick += ChangeBrowserHandler;
+    browserIcon.MouseClick += ChangeBrowserHandler;
 
     ContextMenuStrip MakeContextMenu()
     {
@@ -58,6 +68,10 @@ void UpdateBrowserIcon()
         return menu;
     }
 }
+
+string GetCurrentBrowserName() => CallBrowserScriptCommand("Get-CurrentDefaultBrowser");
+
+void SetAsDefaultBrowser(string browserName) => CallBrowserScriptCommand("Set-DefaultBrowserByName", browserName);
 
 string CallBrowserScriptCommand(params string[] commands)
 {

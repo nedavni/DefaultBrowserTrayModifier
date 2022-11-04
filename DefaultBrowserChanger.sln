@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DefaultBrowserChanger", "DefaultBrowserChanger\DefaultBrowserChanger.csproj", "{AC3CE393-5591-432A-9CA6-677D3637B20E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AC3CE393-5591-432A-9CA6-677D3637B20E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC3CE393-5591-432A-9CA6-677D3637B20E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC3CE393-5591-432A-9CA6-677D3637B20E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC3CE393-5591-432A-9CA6-677D3637B20E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8F7C2AF7-E070-4972-8D2A-E2E64CF979EE}
+	EndGlobalSection
+EndGlobal

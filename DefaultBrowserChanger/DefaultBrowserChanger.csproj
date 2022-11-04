@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net6.0-windows</TargetFramework>
+        <Nullable>enable</Nullable>
+        <UseWindowsForms>true</UseWindowsForms>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <RuntimeIdentifier>win10-x64</RuntimeIdentifier>
+        <ApplicationIcon>FtC.ico</ApplicationIcon>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Remove="BrowserUtils.ps1" />
+        <None Remove="Chrome.ico" />
+        <None Remove="Firefox.ico" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="FtC.ico" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Include="BrowserUtils.ps1">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </EmbeddedResource>
+        <EmbeddedResource Include="Chrome.ico">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </EmbeddedResource>
+        <EmbeddedResource Include="Firefox.ico">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </EmbeddedResource>
+    </ItemGroup>
+
+</Project>
